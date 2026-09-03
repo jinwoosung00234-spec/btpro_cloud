@@ -44,4 +44,5 @@ log_level = 2
 
 # (int) Display warning if buildozer is run as root (0 = NO, 1 = FALSE, 2 = YES)
 warn_on_root = 1
+android.accept_sdk_license = True
 

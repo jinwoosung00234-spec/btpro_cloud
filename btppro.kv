@@ -1,0 +1,208 @@
+#:kivy 2.0.0
+
+<MenuScreen>:
+    canvas.before:
+        Color:
+            rgba: 0.05, 0.08, 0.16, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    ScrollView:
+        do_scroll_x: False
+        do_scroll_y: True
+
+        BoxLayout:
+            orientation: 'vertical'
+            padding: [20, 30, 20, 30]
+            spacing: 20
+            size_hint_y: None
+            height: self.minimum_height
+
+            # En-tête
+            BoxLayout:
+                orientation: 'vertical'
+                padding: 20
+                spacing: 10
+                size_hint_y: None
+                height: 120
+                canvas.before:
+                    Color:
+                        rgba: 0.1, 0.15, 0.28, 0.7
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [16,]
+
+                Label:
+                    text: "[b]BTP PRO[/b] KINSHASA"
+                    markup: True
+                    font_size: '22sp'
+                    color: 1, 1, 1, 1
+                    halign: 'left'
+                    text_size: self.size
+
+                Label:
+                    text: "Sélectionnez un module de calcul"
+                    font_size: '13sp'
+                    color: 0.5, 0.65, 0.85, 1
+                    halign: 'left'
+                    text_size: self.size
+
+            # Carte des modules
+            BoxLayout:
+                orientation: 'vertical'
+                padding: 20
+                spacing: 15
+                size_hint_y: None
+                height: 220
+                canvas.before:
+                    Color:
+                        rgba: 0.1, 0.15, 0.28, 0.7
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [16,]
+
+                Button:
+                    text: "[1] Module Béton"
+                    font_size: '16sp'
+                    bold: True
+                    size_hint_y: None
+                    height: 50
+                    background_color: 0, 0, 0, 0
+                    canvas.before:
+                        Color:
+                            rgba: (0.18, 0.45, 0.98, 1) if self.state == 'normal' else (0.12, 0.35, 0.8, 1)
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [25,]
+
+                Button:
+                    text: "[4] Résistance des Matériaux (RDM)"
+                    font_size: '16sp'
+                    bold: True
+                    size_hint_y: None
+                    height: 50
+                    background_color: 0, 0, 0, 0
+                    on_release: root.manager.current = 'rdm_screen'
+                    canvas.before:
+                        Color:
+                            rgba: (0.18, 0.45, 0.98, 1) if self.state == 'normal' else (0.12, 0.35, 0.8, 1)
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [25,]
+
+
+<RdmScreen>:
+    canvas.before:
+        Color:
+            rgba: 0.05, 0.08, 0.16, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    ScrollView:
+        do_scroll_x: False
+        do_scroll_y: True
+
+        BoxLayout:
+            orientation: 'vertical'
+            padding: [20, 30, 20, 30]
+            spacing: 20
+            size_hint_y: None
+            height: self.minimum_height
+
+            # En-tête Module RDM
+            BoxLayout:
+                orientation: 'vertical'
+                padding: 20
+                spacing: 10
+                size_hint_y: None
+                height: 100
+                canvas.before:
+                    Color:
+                        rgba: 0.1, 0.15, 0.28, 0.7
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [16,]
+
+                Label:
+                    text: "Module RDM"
+                    font_size: '20sp'
+                    bold: True
+                    color: 1, 1, 1, 1
+                    halign: 'left'
+                    text_size: self.size
+
+            # Zone de saisie et résultat
+            BoxLayout:
+                orientation: 'vertical'
+                padding: 20
+                spacing: 15
+                size_hint_y: None
+                height: 280
+                canvas.before:
+                    Color:
+                        rgba: 0.1, 0.15, 0.28, 0.7
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [16,]
+
+                TextInput:
+                    id: input_rdm
+                    hint_text: "Entrez la charge (ex: 10)..."
+                    multiline: False
+                    input_filter: 'float'
+                    size_hint_y: None
+                    height: 48
+                    padding: [12, 12, 12, 12]
+                    background_color: 0.05, 0.08, 0.16, 1
+                    foreground_color: 1, 1, 1, 1
+                    cursor_color: 0.2, 0.6, 1, 1
+
+                Button:
+                    text: "Calculer"
+                    font_size: '16sp'
+                    bold: True
+                    size_hint_y: None
+                    height: 50
+                    background_color: 0, 0, 0, 0
+                    on_release: root.calculer_rdm()
+                    canvas.before:
+                        Color:
+                            rgba: (0.18, 0.45, 0.98, 1) if self.state == 'normal' else (0.12, 0.35, 0.8, 1)
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [25,]
+
+                Label:
+                    text: root.result_text
+                    font_size: '16sp'
+                    bold: True
+                    color: 0.3, 0.8, 0.4, 1
+                    halign: 'center'
+                    valign: 'middle'
+                    text_size: self.size
+                    size_hint_y: None
+                    height: 40
+
+                Button:
+                    text: "Retour au menu"
+                    font_size: '14sp'
+                    size_hint_y: None
+                    height: 45
+                    background_color: 0, 0, 0, 0
+                    on_release: root.manager.current = 'menu_screen'
+                    canvas.before:
+                        Color:
+                            rgba: 0.2, 0.25, 0.35, 1
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [22,]
